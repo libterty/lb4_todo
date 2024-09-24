@@ -15,5 +15,20 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  lb4_app:
+    build: .
+    container_name: lb4_app
+    restart: always
+    ports:
+      - '3000:3000'
+    environment:
+      - DB_HOST=mysql_db
+      - DB_PORT=3306
+      - DB_USER=user
+      - DB_PASSWORD=userpassword
+      - DB_DATABASE=lb4
+    depends_on:
+      - mysql_db
+
 volumes:
   mysql_data:
