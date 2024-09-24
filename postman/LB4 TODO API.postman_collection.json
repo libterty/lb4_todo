@@ -75,7 +75,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"id\": 1,\n        \"title\": \"New Test Todo 2\",\n        \"isComplete\": true,\n        \"createdAt\": \"2024-09-24T02:00:51.000Z\",\n        \"updatedAt\": \"2024-09-24T02:00:51.000Z\",\n        \"deletedAt\": null,\n        \"items\": [\n            {\n                \"id\": 1,\n                \"description\": \"ddd\",\n                \"createdAt\": \"2024-09-24T02:48:02.000Z\",\n                \"updatedAt\": \"2024-09-24T02:48:02.000Z\",\n                \"todoId\": 1\n            },\n            {\n                \"id\": 2,\n                \"description\": \"New Item 2\",\n                \"createdAt\": \"2024-09-24T03:28:46.000Z\",\n                \"updatedAt\": \"2024-09-24T03:28:46.000Z\",\n                \"todoId\": 1\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"title\": \"New Test Todo 3\",\n        \"isComplete\": false,\n        \"createdAt\": \"2024-09-24T03:27:35.000Z\",\n        \"updatedAt\": \"2024-09-24T03:27:35.000Z\",\n        \"deletedAt\": null\n    }\n]"
+					"body": "[\n    {\n        \"id\": 2,\n        \"title\": \"New Test Todo\",\n        \"subtitle\": \"New Test Todo\",\n        \"status\": \"ACTIVE\",\n        \"createdAt\": \"2024-09-24T09:52:31.000Z\",\n        \"updatedAt\": \"2024-09-24T09:52:31.000Z\",\n        \"deletedAt\": null,\n        \"items\": [\n            {\n                \"id\": 1,\n                \"description\": \"ddd2\",\n                \"isCompleted\": true,\n                \"completedAt\": \"2024-09-24T09:56:53.000Z\",\n                \"createdAt\": \"2024-09-24T09:55:58.000Z\",\n                \"updatedAt\": \"2024-09-24T09:55:58.000Z\",\n                \"todoId\": 2\n            }\n        ]\n    },\n    {\n        \"id\": 3,\n        \"title\": \"New Test Todo\",\n        \"subtitle\": \"New Test Todo\",\n        \"status\": \"ACTIVE\",\n        \"createdAt\": \"2024-09-24T09:57:26.000Z\",\n        \"updatedAt\": \"2024-09-24T09:57:26.000Z\",\n        \"deletedAt\": null\n    }\n]"
 				}
 			]
 		},
@@ -98,7 +98,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "1"
+							"value": "2"
 						}
 					]
 				}
@@ -138,7 +138,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"id\": 1,\n    \"title\": \"New Test Todo 2\",\n    \"isComplete\": true,\n    \"createdAt\": \"2024-09-24T02:00:51.000Z\",\n    \"updatedAt\": \"2024-09-24T02:00:51.000Z\",\n    \"deletedAt\": null,\n    \"items\": [\n        {\n            \"id\": 1,\n            \"description\": \"New Item 1\",\n            \"createdAt\": \"2024-09-24T02:48:02.000Z\",\n            \"updatedAt\": \"2024-09-24T02:48:02.000Z\",\n            \"todoId\": 1\n        }\n    ]\n}"
+					"body": "{\n    \"id\": 2,\n    \"title\": \"New Test Todo\",\n    \"subtitle\": \"New Test Todo\",\n    \"status\": \"ACTIVE\",\n    \"createdAt\": \"2024-09-24T09:52:31.000Z\",\n    \"updatedAt\": \"2024-09-24T09:52:31.000Z\",\n    \"deletedAt\": null,\n    \"items\": [\n        {\n            \"id\": 1,\n            \"description\": \"ddd2\",\n            \"isCompleted\": true,\n            \"completedAt\": \"2024-09-24T09:56:53.000Z\",\n            \"createdAt\": \"2024-09-24T09:55:58.000Z\",\n            \"updatedAt\": \"2024-09-24T09:55:58.000Z\",\n            \"todoId\": 2\n        }\n    ]\n}"
 				}
 			]
 		},
@@ -155,7 +155,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"New Test Todo\",\n    \"isComplete\": false // optional\n}",
+					"raw": "{\n    \"title\": \"New Test Todo\",\n    \"subtitle\": \"New Test Todo\", // optional\n    \"status\": \"ACTIVE\" // optional ACTIVE, INACTIVE, DELETED\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -188,7 +188,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"New Test Todo 3\",\n    \"isComplete\": false // optional\n}",
+							"raw": "{\n    \"title\": \"New Test Todo\",\n    \"subtitle\": \"New Test Todo\", // optional\n    \"status\": \"ACTIVE\" // optional ACTIVE, INACTIVE, DELETED\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -217,7 +217,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"id\": 2,\n    \"title\": \"New Test Todo 3\",\n    \"isComplete\": false,\n    \"createdAt\": \"2024-09-24T03:27:35.432Z\",\n    \"updatedAt\": \"2024-09-24T03:27:35.432Z\",\n    \"deletedAt\": null\n}"
+					"body": "{\n    \"id\": 1,\n    \"title\": \"New Test Todo\",\n    \"subtitle\": \"New Test Todo\",\n    \"status\": \"ACTIVE\",\n    \"createdAt\": \"2024-09-24T09:51:07.695Z\",\n    \"updatedAt\": \"2024-09-24T09:51:07.695Z\",\n    \"deletedAt\": null\n}"
 				}
 			]
 		},
@@ -234,7 +234,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"description\": \"New Item 2\"\n}",
+					"raw": "{\n    \"description\": \"New Item 2\",\n    \"isCompleted\": false // optional\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -256,7 +256,7 @@
 					"variable": [
 						{
 							"key": "todoId",
-							"value": "1"
+							"value": "2"
 						}
 					]
 				}
@@ -275,7 +275,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"description\": \"New Item 2\"\n}",
+							"raw": "{\n    \"description\": \"New Item 2\",\n    \"isCompleted\": false // optional\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -312,7 +312,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"id\": 2,\n    \"description\": \"New Item 2\",\n    \"createdAt\": \"2024-09-24T03:28:46.484Z\",\n    \"updatedAt\": \"2024-09-24T03:28:46.484Z\",\n    \"todoId\": 1\n}"
+					"body": "{\n    \"id\": 1,\n    \"description\": \"New Item 2\",\n    \"isCompleted\": false,\n    \"createdAt\": \"2024-09-24T09:55:58.053Z\",\n    \"updatedAt\": \"2024-09-24T09:55:58.053Z\",\n    \"todoId\": 2\n}"
 				}
 			]
 		},
@@ -342,7 +342,7 @@
 					"variable": [
 						{
 							"key": "todoId",
-							"value": "1"
+							"value": "2"
 						}
 					]
 				}
@@ -389,7 +389,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"id\": 1,\n        \"description\": \"ddd\",\n        \"createdAt\": \"2024-09-24T02:48:02.000Z\",\n        \"updatedAt\": \"2024-09-24T02:48:02.000Z\",\n        \"todoId\": 1\n    },\n    {\n        \"id\": 2,\n        \"description\": \"New Item 2\",\n        \"createdAt\": \"2024-09-24T03:28:46.000Z\",\n        \"updatedAt\": \"2024-09-24T03:28:46.000Z\",\n        \"todoId\": 1\n    }\n]"
+					"body": "[\n    {\n        \"id\": 1,\n        \"description\": \"ddd2\",\n        \"isCompleted\": true,\n        \"completedAt\": \"2024-09-24T09:56:53.000Z\",\n        \"createdAt\": \"2024-09-24T09:55:58.000Z\",\n        \"updatedAt\": \"2024-09-24T09:55:58.000Z\",\n        \"todoId\": 2\n    }\n]"
 				}
 			]
 		},
@@ -420,7 +420,7 @@
 					"variable": [
 						{
 							"key": "todoId",
-							"value": "1"
+							"value": "2"
 						},
 						{
 							"key": "id",
@@ -493,7 +493,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"description\": \"ddd\"\n}",
+					"raw": "{\n    \"description\": \"ddd2\",\n    \"isCompleted\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -516,7 +516,7 @@
 					"variable": [
 						{
 							"key": "todoId",
-							"value": "1"
+							"value": "2"
 						},
 						{
 							"key": "id",
@@ -539,7 +539,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"description\": \"ddd\"\n}",
+							"raw": "{\n    \"description\": \"ddd2\",\n    \"isCompleted\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -581,12 +581,12 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"id\": 1,\n    \"description\": \"ddd\",\n    \"createdAt\": \"2024-09-24T02:48:02.000Z\",\n    \"updatedAt\": \"2024-09-24T02:48:02.000Z\",\n    \"todoId\": 1\n}"
+					"body": "{\n    \"id\": 1,\n    \"description\": \"ddd2\",\n    \"isCompleted\": true,\n    \"completedAt\": \"2024-09-24T09:56:53.000Z\",\n    \"createdAt\": \"2024-09-24T09:55:58.000Z\",\n    \"updatedAt\": \"2024-09-24T09:55:58.000Z\",\n    \"todoId\": 2\n}"
 				}
 			]
 		},
 		{
-			"name": "Delete Items By Id Copy",
+			"name": "Delete Items By Id",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -612,11 +612,11 @@
 					"variable": [
 						{
 							"key": "todoId",
-							"value": "1"
+							"value": "2"
 						},
 						{
 							"key": "id",
-							"value": "1"
+							"value": "2"
 						}
 					]
 				}
@@ -636,7 +636,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"New Test Todo 2\",\n    \"isComplete\": true // optional\n}",
+					"raw": "{\n    \"title\": \"New Test Todo 2\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -676,7 +676,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"New Test Todo 2\",\n    \"isComplete\": true // optional\n}",
+							"raw": "{\n    \"title\": \"New Test Todo 2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -712,7 +712,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"id\": 1,\n    \"title\": \"New Test Todo 2\",\n    \"isComplete\": true,\n    \"createdAt\": \"2024-09-24T02:00:51.000Z\",\n    \"updatedAt\": \"2024-09-24T02:00:51.000Z\",\n    \"deletedAt\": null\n}"
+					"body": "{\n    \"id\": 1,\n    \"title\": \"New Test Todo 2\",\n    \"subtitle\": \"New Test Todo\",\n    \"status\": \"ACTIVE\",\n    \"createdAt\": \"2024-09-24T09:51:08.000Z\",\n    \"updatedAt\": \"2024-09-24T09:51:08.000Z\",\n    \"deletedAt\": null\n}"
 				}
 			]
 		},
