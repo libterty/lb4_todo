@@ -45,6 +45,7 @@ export class ItemController {
   ): Promise<Item> {
     return this.itemRepository.create({
       ...dto,
+      completedAt: !!dto.isCompleted ? new Date().toISOString() : undefined,
       todoId,
     });
   }
@@ -64,10 +65,12 @@ export class ItemController {
   async find(
     @param.path.number('todoId') todoId: number,
     @param.query.string('description') description?: string,
+    @param.query.boolean('isCompleted') isCompleted?: boolean,
   ): Promise<Item[]> {
     return this.itemRepository.findAll({
-      description: description,
       todoId,
+      description: description,
+      isCompleted,
     });
   }
 
@@ -112,7 +115,7 @@ export class ItemController {
     return this.itemRepository.findOneItem(todoId, id);
   }
 
-  @del('/items/{id}')
+  @del('/todos/{todoId}/items/{id}')
   @response(204, {
     description: 'Item DELETE success',
   })

@@ -1,4 +1,7 @@
+import {TodoStatus} from '../models';
+
 export class TodoCreateDTO {
   title: string;
-  isComplete?: boolean;
+  subtitle?: string;
+  status?: TodoStatus;
 }

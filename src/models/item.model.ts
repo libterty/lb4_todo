@@ -18,6 +18,18 @@ export class Item extends Entity {
   description: string;
 
   @property({
+    type: 'boolean',
+    required: true,
+    default: false,
+  })
+  isCompleted: boolean;
+
+  @property({
+    type: 'date',
+  })
+  completedAt?: string;
+
+  @property({
     type: 'date',
     default: () => new Date(),
   })

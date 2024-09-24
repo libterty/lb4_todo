@@ -1,5 +1,8 @@
+import {TodoStatus} from '../models';
+
 export class TodoUpdateDTO {
   id: number;
   title?: string;
-  isComplete?: boolean;
+  subTitle?: string;
+  status?: TodoStatus;
 }

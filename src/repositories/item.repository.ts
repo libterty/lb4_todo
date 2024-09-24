@@ -31,12 +31,13 @@ export class ItemRepository extends DefaultCrudRepository<
   async findAll(dto: ItemQueryDTO, options?: Options): Promise<Item[]> {
     const filter: Filter<Item> = {
       where: {
+        todoId: dto.todoId,
         description: !!dto.description
           ? {
               like: '%' + dto.description + '%',
             }
           : undefined,
-        todoId: dto.todoId,
+        isCompleted: dto.isCompleted,
       },
     };
     return super.find(filter, options);
@@ -59,7 +60,10 @@ export class ItemRepository extends DefaultCrudRepository<
     id: typeof Item.prototype.id,
     item: ItemUpdateDTO,
   ): Promise<void> {
-    await super.updateAll(item, {
+    await super.updateAll({
+      ...item,
+      completedAt: !!item.isCompleted ? new Date().toISOString() : undefined,
+    }, {
       id,
       todoId,
     });

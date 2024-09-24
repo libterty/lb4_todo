@@ -11,7 +11,7 @@ import {
   response,
 } from '@loopback/rest';
 import {TodoCreateDTO, TodoQueryDTO, TodoUpdateDTO} from '../dtos';
-import {Item, Todo, TodoWithRelations} from '../models';
+import {Item, Todo, TodoStatus, TodoWithRelations} from '../models';
 import {ItemRepository, TodoRepository} from '../repositories';
 
 export class TodoController {
@@ -61,11 +61,11 @@ export class TodoController {
   })
   async find(
     @param.query.string('title') title?: string,
-    @param.query.boolean('isComplete') isComplete?: boolean,
+    @param.query.string('status') status?: TodoStatus,
   ): Promise<TodoWithRelations[]> {
     return this.todoRepository.findAll({
       title,
-      isComplete,
+      status,
     } as TodoQueryDTO);
   }
 

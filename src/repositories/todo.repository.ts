@@ -9,7 +9,7 @@ import {
 } from '@loopback/repository';
 import {DbDataSource} from '../datasources';
 import {TodoQueryDTO} from '../dtos';
-import {Item, Todo, TodoWithRelations} from '../models';
+import {Item, Todo, TodoStatus, TodoWithRelations} from '../models';
 import {ItemRepository} from './item.repository';
 
 export class TodoRepository extends DefaultCrudRepository<
@@ -45,7 +45,7 @@ export class TodoRepository extends DefaultCrudRepository<
               like: '%' + dto.title + '%',
             }
           : undefined,
-        isComplete: dto.isComplete,
+        status: dto.status,
         deletedAt: {
           eq: null,
         },
@@ -67,6 +67,9 @@ export class TodoRepository extends DefaultCrudRepository<
   }
 
   async deleteById(id: typeof Todo.prototype.id): Promise<void> {
-    await super.updateById(id, {deletedAt: new Date().toISOString()});
+    await super.updateById(id, {
+      status: TodoStatus.DELETED,
+      deletedAt: new Date().toISOString(),
+    });
   }
 }

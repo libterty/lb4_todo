@@ -2,6 +2,12 @@
 import {Entity, hasMany, model, property} from '@loopback/repository';
 import {Item, ItemWithRelations} from './item.model';
 
+export enum TodoStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  DELETED = 'DELETED'
+}
+
 @model()
 export class Todo extends Entity {
   @property({
@@ -18,10 +24,16 @@ export class Todo extends Entity {
   title: string;
 
   @property({
-    type: 'boolean',
-    default: false,
+    type: 'string',
   })
-  isComplete?: boolean;
+  subtitle?: string;
+
+  @property({
+    type: 'string',
+    required: true,
+    default: TodoStatus.ACTIVE,
+  })
+  status: TodoStatus;
 
   @property({
     type: 'date',

@@ -1,4 +1,6 @@
+import {TodoStatus} from '../models';
+
 export class TodoQueryDTO {
   title?: string;
-  isComplete?: boolean;
+  status?: TodoStatus;
 }
