@@ -68,3 +68,7 @@ For development purposes, you can use the following commands:
 ## Troubleshooting
 
 If you encounter any issues, please check the logs using `make logs` command. If you need to reset the entire environment, you can use `make destroy` followed by `make build` and `make up`.
+
+## Play With Api
+
+You can import the postman example from `./postman/LB4 TODO API.postman_collection.json` to have fun with it.
