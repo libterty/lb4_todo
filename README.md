@@ -1,75 +1,70 @@
 # loopback4_todo
 
-This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
-[initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
+This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the [initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
 
-## Install dependencies
+## Prerequisites
 
-By default, dependencies were installed when this application was generated.
-Whenever dependencies in `package.json` are changed, run the following command:
+To run this application, you only need to have the following installed on your system:
 
-```sh
-npm install
-```
+- [Docker](https://www.docker.com/get-started)
+- [Make](https://www.gnu.org/software/make/)
 
-To only install resolved dependencies in `package-lock.json`:
+## Getting Started
 
-```sh
-npm ci
-```
-
-## Run the application
+1. Clone this repository to your local machine.
+2. Navigate to the project directory in your terminal.
+3. Run the following command to build and start the application:
 
 ```sh
-npm start
+make build && make up
 ```
 
-You can also run `node .` to skip the build step.
+This will build the Docker images and start the containers defined in the `docker-compose.yml` file.
 
-Open http://127.0.0.1:3000 in your browser.
+## Available Make Commands
 
-## Rebuild the project
+Here's a list of all available make commands:
 
-To incrementally build the project:
+- `make help`: List all commands available for make
+- `make build`: Build the image from Dockerfile
+- `make migrate`: Run database migrations inside the Docker container (Required to run `make up` first)
+- `make up`: Stop and recreate the containers
+- `make start`: Start the containers
+- `make down`: Stop and shutdown containers
+- `make destroy`: Destroy containers
+- `make stop`: Stop containers
+- `make restart`: Restart containers
+- `make logs`: View container logs
+- `make ps`: List containers
+- `make sh`: Open a shell in a container
+
+You can run these commands with specific containers by adding `c=container_name`. For example:
 
 ```sh
-npm run build
+make start c=database
 ```
 
-To force a full build by cleaning up cached artifacts:
+## Accessing the Application
 
-```sh
-npm run rebuild
-```
+Once the containers are up and running, you can access the application at:
 
-## Fix code style and formatting issues
+http://localhost:3000
 
-```sh
-npm run lint
-```
+## API Documentation
 
-To automatically fix such issues:
+The API documentation (OpenAPI spec) can be accessed at:
 
-```sh
-npm run lint:fix
-```
+http://localhost:3000/explorer
 
-## Other useful commands
+## Development
 
-- `npm run migrate`: Migrate database schemas for models
-- `npm run openapi-spec`: Generate OpenAPI spec into a file
-- `npm run docker:build`: Build a Docker image for this application
-- `npm run docker:run`: Run this application inside a Docker container
+For development purposes, you can use the following commands:
 
-## Tests
+- To rebuild the project: `make build`
+- To view logs: `make logs`
+- To stop the application: `make stop`
+- To restart the application: `make restart`
 
-```sh
-npm test
-```
+## Troubleshooting
 
-## What's next
-
-Please check out [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/) to
-understand how you can continue to add features to this application.
-
-[![LoopBack](https://github.com/loopbackio/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
+If you encounter any issues, please check the logs using `make logs` command. If you need to reset the entire environment, you can use `make destroy` followed by `make build` and `make up`.
