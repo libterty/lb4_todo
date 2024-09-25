@@ -7,11 +7,19 @@ import {
   IsolationLevel,
   Options,
   repository,
+  Where,
 } from '@loopback/repository';
 import {DbDataSource} from '../datasources';
-import {TodoCreateDTO, TodoQueryDTO} from '../dtos';
+import {TodoCreateDTO, TodoCursorPagingRODTO, TodoQueryDTO} from '../dtos';
 import {Item, Todo, TodoStatus, TodoWithRelations} from '../models';
 import {ItemRepository} from './item.repository';
+
+type ExtendedWhere<T extends object> = Where<T> & {
+  id?: {
+    gt?: string;
+    lt?: string;
+  };
+};
 
 export class TodoRepository extends DefaultCrudRepository<
   Todo,
@@ -77,22 +85,36 @@ export class TodoRepository extends DefaultCrudRepository<
   async findAll(
     dto: TodoQueryDTO,
     options?: Options,
-  ): Promise<TodoWithRelations[]> {
-    const filter: Filter<Todo> = {
-      where: {
-        title: !!dto.title
-          ? {
-              like: '%' + dto.title + '%',
-            }
-          : undefined,
-        status: dto.status,
-        deletedAt: {
-          eq: null,
-        },
-      },
-      include: [{relation: 'items'}],
+  ): Promise<TodoCursorPagingRODTO<TodoWithRelations>> {
+    const limit = dto.limit && dto.limit > 0 ? dto.limit : 10;
+    const offset = dto.offset && dto.offset >= 0 ? dto.offset : 0;
+    const order = dto.order || 'ASC';
+
+    const baseWhere: Where<Todo> = {
+      title: dto.title ? {like: `%${dto.title}%`} : undefined,
+      status: dto.status,
+      deletedAt: {eq: null},
     };
-    return super.find(filter, options);
+
+    // 獲取總數
+    const count = await this.count(baseWhere);
+
+    const filter: Filter<Todo> = {
+      where: baseWhere,
+      include: [{relation: 'items'}],
+      limit: limit,
+      offset: offset,
+      order: ['id ' + order],
+    };
+
+    const todos = await super.find(filter, options);
+
+    return {
+      data: todos,
+      total: count.count,
+      limit: limit,
+      offset: offset,
+    };
   }
 
   async findOneTodo(

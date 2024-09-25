@@ -10,7 +10,12 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {TodoCreateDTO, TodoQueryDTO, TodoUpdateDTO} from '../dtos';
+import {
+  TodoCreateDTO,
+  TodoCursorPagingRODTO,
+  TodoQueryDTO,
+  TodoUpdateDTO,
+} from '../dtos';
 import {Item, Todo, TodoStatus, TodoWithRelations} from '../models';
 import {ItemRepository, TodoRepository} from '../repositories';
 
@@ -61,12 +66,26 @@ export class TodoController {
 
   @get('/todos')
   @response(200, {
-    description: 'Array of Todo model instances',
+    description: 'Array of Todo model instances with cursor-based pagination',
     content: {
       'application/json': {
         schema: {
-          type: 'array',
-          items: getModelSchemaRef(Todo, {includeRelations: true}),
+          type: 'object',
+          properties: {
+            data: {
+              type: 'array',
+              items: getModelSchemaRef(Todo, {includeRelations: true}),
+            },
+            total: {
+              type: 'number',
+            },
+            limit: {
+              type: 'number',
+            },
+            offset: {
+              type: 'number',
+            },
+          },
         },
       },
     },
@@ -74,10 +93,16 @@ export class TodoController {
   async find(
     @param.query.string('title') title?: string,
     @param.query.string('status') status?: TodoStatus,
-  ): Promise<TodoWithRelations[]> {
+    @param.query.number('limit') limit?: number,
+    @param.query.number('offset') offset?: number,
+    @param.query.string('order') order?: 'ASC' | 'DESC',
+  ): Promise<TodoCursorPagingRODTO<TodoWithRelations>> {
     return this.todoRepository.findAll({
       title,
       status,
+      limit,
+      offset,
+      order,
     } as TodoQueryDTO);
   }
 
