@@ -35,16 +35,28 @@ export class TodoController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Todo, {
+          schema: {
+            type: 'object',
             title: 'NewTodo',
-            exclude: ['id', 'createdAt', 'updatedAt', 'deletedAt'],
-          }),
+            properties: {
+              ...getModelSchemaRef(Todo, {
+                title: 'NewTodo',
+                exclude: ['id', 'createdAt', 'updatedAt', 'deletedAt'],
+              }).definitions.NewTodo.properties,
+              items: {
+                type: 'array',
+                items: getModelSchemaRef(Item, {
+                  title: 'NewItem',
+                }),
+              },
+            },
+          },
         },
       },
     })
     todo: TodoCreateDTO,
   ): Promise<Todo> {
-    return this.todoRepository.create(todo);
+    return this.todoRepository.createOne(todo);
   }
 
   @get('/todos')

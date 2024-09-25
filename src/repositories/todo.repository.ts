@@ -4,11 +4,12 @@ import {
   DefaultCrudRepository,
   Filter,
   HasManyRepositoryFactory,
+  IsolationLevel,
   Options,
   repository,
 } from '@loopback/repository';
 import {DbDataSource} from '../datasources';
-import {TodoQueryDTO} from '../dtos';
+import {TodoCreateDTO, TodoQueryDTO} from '../dtos';
 import {Item, Todo, TodoStatus, TodoWithRelations} from '../models';
 import {ItemRepository} from './item.repository';
 
@@ -32,6 +33,45 @@ export class TodoRepository extends DefaultCrudRepository<
       itemRepositoryGetter,
     );
     this.registerInclusionResolver('items', this.items.inclusionResolver);
+  }
+
+  async createOne(dto: TodoCreateDTO) {
+    const transaction = await this.dataSource.beginTransaction(
+      IsolationLevel.READ_COMMITTED,
+    );
+    try {
+      const {items, ...rest} = dto;
+
+      // Create the todo
+      const todo = await this.create(rest, {transaction});
+
+      // Create the items
+      const itemRepository = await this.itemRepositoryGetter();
+      if (Array.isArray(items) && items.length > 0) {
+        const newItems = await Promise.all(
+          items.map(item =>
+            itemRepository.create(
+              {
+                ...item,
+                completedAt: !!item.isCompleted
+                  ? new Date().toISOString()
+                  : undefined,
+                todoId: todo.id,
+              },
+              {transaction},
+            ),
+          ),
+        );
+        // Attach items to todo
+        todo.items = newItems;
+      }
+
+      await transaction.commit();
+      return todo;
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
   }
 
   async findAll(

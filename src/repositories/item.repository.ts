@@ -60,12 +60,15 @@ export class ItemRepository extends DefaultCrudRepository<
     id: typeof Item.prototype.id,
     item: ItemUpdateDTO,
   ): Promise<void> {
-    await super.updateAll({
-      ...item,
-      completedAt: !!item.isCompleted ? new Date().toISOString() : undefined,
-    }, {
-      id,
-      todoId,
-    });
+    await super.updateAll(
+      {
+        ...item,
+        completedAt: !!item.isCompleted ? new Date().toISOString() : undefined,
+      },
+      {
+        id,
+        todoId,
+      },
+    );
   }
 }
