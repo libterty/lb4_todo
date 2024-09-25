@@ -28,8 +28,27 @@
 							"disabled": true
 						},
 						{
-							"key": "isComplete",
-							"value": "false",
+							"key": "status",
+							"value": "ACTIVE",
+							"description": "ACTIVE | INACTIVE",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "1",
+							"description": "Deafult 10",
+							"disabled": true
+						},
+						{
+							"key": "offset",
+							"value": "0",
+							"description": "Deafult 0",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": null,
+							"description": "'ASC' | 'DESC'",
 							"disabled": true
 						}
 					]
@@ -58,8 +77,27 @@
 									"disabled": true
 								},
 								{
-									"key": "isComplete",
-									"value": "false",
+									"key": "status",
+									"value": "ACTIVE",
+									"description": "ACTIVE | INACTIVE",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"description": "Deafult 10",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Deafult 0",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": null,
+									"description": "'ASC' | 'DESC'",
 									"disabled": true
 								}
 							]
@@ -75,7 +113,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"id\": 2,\n        \"title\": \"New Test Todo\",\n        \"subtitle\": \"New Test Todo\",\n        \"status\": \"ACTIVE\",\n        \"createdAt\": \"2024-09-24T09:52:31.000Z\",\n        \"updatedAt\": \"2024-09-24T09:52:31.000Z\",\n        \"deletedAt\": null,\n        \"items\": [\n            {\n                \"id\": 1,\n                \"description\": \"ddd2\",\n                \"isCompleted\": true,\n                \"completedAt\": \"2024-09-24T09:56:53.000Z\",\n                \"createdAt\": \"2024-09-24T09:55:58.000Z\",\n                \"updatedAt\": \"2024-09-24T09:55:58.000Z\",\n                \"todoId\": 2\n            }\n        ]\n    },\n    {\n        \"id\": 3,\n        \"title\": \"New Test Todo\",\n        \"subtitle\": \"New Test Todo\",\n        \"status\": \"ACTIVE\",\n        \"createdAt\": \"2024-09-24T09:57:26.000Z\",\n        \"updatedAt\": \"2024-09-24T09:57:26.000Z\",\n        \"deletedAt\": null\n    }\n]"
+					"body": "{\n    \"data\": [\n        {\n            \"id\": 2,\n            \"title\": \"New Test Todo\",\n            \"subtitle\": \"New Test Todo\",\n            \"status\": \"ACTIVE\",\n            \"createdAt\": \"2024-09-24T09:52:31.000Z\",\n            \"updatedAt\": \"2024-09-24T09:52:31.000Z\",\n            \"deletedAt\": null,\n            \"items\": [\n                {\n                    \"id\": 1,\n                    \"description\": \"ddd2\",\n                    \"isCompleted\": true,\n                    \"completedAt\": \"2024-09-24T09:56:53.000Z\",\n                    \"createdAt\": \"2024-09-24T09:55:58.000Z\",\n                    \"updatedAt\": \"2024-09-24T09:55:58.000Z\",\n                    \"todoId\": 2\n                }\n            ]\n        },\n        {\n            \"id\": 3,\n            \"title\": \"New Test Todo\",\n            \"subtitle\": \"New Test Todo\",\n            \"status\": \"ACTIVE\",\n            \"createdAt\": \"2024-09-24T09:57:26.000Z\",\n            \"updatedAt\": \"2024-09-24T09:57:26.000Z\",\n            \"deletedAt\": null\n        },\n        {\n            \"id\": 4,\n            \"title\": \"New Test Todo 3\",\n            \"subtitle\": \"New Test Todo 3\",\n            \"status\": \"ACTIVE\",\n            \"createdAt\": \"2024-09-25T01:11:34.000Z\",\n            \"updatedAt\": \"2024-09-25T01:11:34.000Z\",\n            \"deletedAt\": null,\n            \"items\": [\n                {\n                    \"id\": 3,\n                    \"description\": \"New Test Todo 3 New Item 1\",\n                    \"isCompleted\": true,\n                    \"completedAt\": \"2024-09-25T01:11:34.000Z\",\n                    \"createdAt\": \"2024-09-25T01:11:34.000Z\",\n                    \"updatedAt\": \"2024-09-25T01:11:34.000Z\",\n                    \"todoId\": 4\n                },\n                {\n                    \"id\": 4,\n                    \"description\": \"New Test Todo 3 New Item 2\",\n                    \"isCompleted\": false,\n                    \"completedAt\": null,\n                    \"createdAt\": \"2024-09-25T01:11:34.000Z\",\n                    \"updatedAt\": \"2024-09-25T01:11:34.000Z\",\n                    \"todoId\": 4\n                }\n            ]\n        }\n    ],\n    \"total\": 3,\n    \"limit\": 10,\n    \"offset\": 0\n}"
 				}
 			]
 		},
@@ -155,7 +193,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"New Test Todo\",\n    \"subtitle\": \"New Test Todo\", // optional\n    \"status\": \"ACTIVE\" // optional ACTIVE, INACTIVE, DELETED\n}",
+					"raw": "{\n    \"title\": \"New Test Todo 3\",\n    \"subtitle\": \"New Test Todo 3\", // optional\n    \"status\": \"ACTIVE\", // optional ACTIVE, INACTIVE, DELETED\n    \"items\": [\n        {\n            \"description\": \"New Test Todo 3 New Item 1\",\n            \"isCompleted\": true // optional\n        },\n        {\n            \"description\": \"New Test Todo 3 New Item 2\",\n            \"isCompleted\": false // optional\n        }\n    ] // optional\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -188,7 +226,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"New Test Todo\",\n    \"subtitle\": \"New Test Todo\", // optional\n    \"status\": \"ACTIVE\" // optional ACTIVE, INACTIVE, DELETED\n}",
+							"raw": "{\n    \"title\": \"New Test Todo 3\",\n    \"subtitle\": \"New Test Todo 3\", // optional\n    \"status\": \"ACTIVE\", // optional ACTIVE, INACTIVE, DELETED\n    \"items\": [\n        {\n            \"description\": \"New Test Todo 3 New Item 1\",\n            \"isCompleted\": true // optional\n        },\n        {\n            \"description\": \"New Test Todo 3 New Item 2\",\n            \"isCompleted\": false // optional\n        }\n    ] // optional\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -217,7 +255,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"id\": 1,\n    \"title\": \"New Test Todo\",\n    \"subtitle\": \"New Test Todo\",\n    \"status\": \"ACTIVE\",\n    \"createdAt\": \"2024-09-24T09:51:07.695Z\",\n    \"updatedAt\": \"2024-09-24T09:51:07.695Z\",\n    \"deletedAt\": null\n}"
+					"body": "{\n    \"id\": 4,\n    \"title\": \"New Test Todo 3\",\n    \"subtitle\": \"New Test Todo 3\",\n    \"status\": \"ACTIVE\",\n    \"createdAt\": \"2024-09-25T01:11:33.741Z\",\n    \"updatedAt\": \"2024-09-25T01:11:33.741Z\",\n    \"deletedAt\": null,\n    \"items\": [\n        {\n            \"id\": 3,\n            \"description\": \"New Test Todo 3 New Item 1\",\n            \"isCompleted\": true,\n            \"completedAt\": \"2024-09-25T01:11:33.745Z\",\n            \"createdAt\": \"2024-09-25T01:11:33.745Z\",\n            \"updatedAt\": \"2024-09-25T01:11:33.745Z\",\n            \"todoId\": 4\n        },\n        {\n            \"id\": 4,\n            \"description\": \"New Test Todo 3 New Item 2\",\n            \"isCompleted\": false,\n            \"createdAt\": \"2024-09-25T01:11:33.746Z\",\n            \"updatedAt\": \"2024-09-25T01:11:33.746Z\",\n            \"todoId\": 4\n        }\n    ]\n}"
 				}
 			]
 		},
@@ -457,7 +495,7 @@
 							"variable": [
 								{
 									"key": "todoId",
-									"value": "1"
+									"value": "2"
 								},
 								{
 									"key": "id",
@@ -476,7 +514,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"id\": 1,\n    \"description\": \"New Item 1\",\n    \"createdAt\": \"2024-09-24T02:48:02.000Z\",\n    \"updatedAt\": \"2024-09-24T02:48:02.000Z\",\n    \"todoId\": 1\n}"
+					"body": "{\n    \"id\": 1,\n    \"description\": \"ddd2\",\n    \"isCompleted\": true,\n    \"completedAt\": \"2024-09-24T09:56:53.000Z\",\n    \"createdAt\": \"2024-09-24T09:55:58.000Z\",\n    \"updatedAt\": \"2024-09-24T09:55:58.000Z\",\n    \"todoId\": 2\n}"
 				}
 			]
 		},
