@@ -50,10 +50,8 @@ export class TodoRepository extends DefaultCrudRepository<
     try {
       const {items, ...rest} = dto;
 
-      // Create the todo
       const todo = await this.create(rest, {transaction});
 
-      // Create the items
       const itemRepository = await this.itemRepositoryGetter();
       if (Array.isArray(items) && items.length > 0) {
         const newItems = await Promise.all(
@@ -70,7 +68,6 @@ export class TodoRepository extends DefaultCrudRepository<
             ),
           ),
         );
-        // Attach items to todo
         todo.items = newItems;
       }
 
@@ -96,7 +93,6 @@ export class TodoRepository extends DefaultCrudRepository<
       deletedAt: {eq: null},
     };
 
-    // 獲取總數
     const count = await this.count(baseWhere);
 
     const filter: Filter<Todo> = {
