@@ -4,7 +4,7 @@ import {
   DefaultCrudRepository,
   HasManyRepositoryFactory,
   repository,
-  Where
+  Where,
 } from '@loopback/repository';
 import {DbDataSource} from '../datasources';
 import {Item, Todo} from '../models';

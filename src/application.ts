@@ -52,7 +52,9 @@ export class Loopback4TodoApplication extends BootMixin(
       },
     };
 
-    this.bind('providers.ClassTransformerProvider').toProvider(ClassTransformerProvider);
+    this.bind('providers.ClassTransformerProvider').toProvider(
+      ClassTransformerProvider,
+    );
 
     this.service(TodoService);
     this.service(ItemService);

@@ -1,5 +1,10 @@
 import {BindingScope, Getter, inject, injectable} from '@loopback/core';
-import {Filter, IsolationLevel, juggler, repository} from '@loopback/repository';
+import {
+  Filter,
+  IsolationLevel,
+  juggler,
+  repository,
+} from '@loopback/repository';
 import {TodoCreateDTO, TodoCursorPagingRODTO, TodoQueryDTO} from '../dtos';
 import {ApplicationError} from '../errors';
 import {Item, Todo, TodoStatus} from '../models';
@@ -33,7 +38,9 @@ export class TodoService {
             itemRepository.create(
               {
                 ...item,
-                completedAt: item.isCompleted ? new Date().toISOString() : undefined,
+                completedAt: item.isCompleted
+                  ? new Date().toISOString()
+                  : undefined,
                 todoId: todo.id,
               } as Item,
               {transaction},
@@ -57,7 +64,7 @@ export class TodoService {
         status: query.status,
         deletedAt: {
           eq: null,
-        }
+        },
       },
       limit: query.limit,
       offset: query.offset,
@@ -94,14 +101,14 @@ export class TodoService {
     await this.todoRepository.updateById(id, todoData);
   }
 
-  async deleteById(id: typeof Todo.prototype.id,): Promise<void> {
+  async deleteById(id: typeof Todo.prototype.id): Promise<void> {
     const existingTodo = await this.todoRepository.findById(id);
     if (!existingTodo) {
       throw ApplicationError.notFound();
     }
     await this.todoRepository.updateById(id, {
       status: TodoStatus.DELETED,
-      deletedAt:new Date().toISOString(),
+      deletedAt: new Date().toISOString(),
     });
   }
 }

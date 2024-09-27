@@ -15,20 +15,20 @@ export class ItemService {
     protected todoRepositoryGetter: Getter<TodoRepository>,
   ) {}
 
-  async create(dto: ItemCreateDTO & { todoId: typeof Todo.prototype.id, }): Promise<Item> {
+  async create(
+    dto: ItemCreateDTO & {todoId: typeof Todo.prototype.id},
+  ): Promise<Item> {
     const todoRepo = await this.todoRepositoryGetter();
     const todo = await todoRepo.findById(dto.todoId);
     if (!todo) {
       throw ApplicationError.notFound();
     }
-    const { todoId, ...item } = dto;
-    const newItem = await this.itemRepository.create(
-      {
-        ...item,
-        todoId,
-        completedAt: item.isCompleted ? new Date().toISOString() : undefined,
-      }
-    );
+    const {todoId, ...item} = dto;
+    const newItem = await this.itemRepository.create({
+      ...item,
+      todoId,
+      completedAt: item.isCompleted ? new Date().toISOString() : undefined,
+    });
     return newItem;
   }
 
@@ -84,6 +84,6 @@ export class ItemService {
     await this.itemRepository.deleteAll({
       id,
       todoId,
-    })
+    });
   }
 }

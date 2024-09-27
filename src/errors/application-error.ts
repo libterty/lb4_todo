@@ -3,14 +3,18 @@ export class ApplicationError extends Error {
     public statusCode: number,
     public name: string,
     public message: string,
-    public details?: object
+    public details?: object,
   ) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
   }
 
   static notFound(entity?: string): ApplicationError {
-    return new ApplicationError(404, 'NotFoundError', `${entity || 'Entity'} not found`);
+    return new ApplicationError(
+      404,
+      'NotFoundError',
+      `${entity || 'Entity'} not found`,
+    );
   }
 
   static badRequest(message: string, details?: object): ApplicationError {
