@@ -1,5 +1,5 @@
 // controllers/todo.controller.ts
-import {repository} from '@loopback/repository';
+import {inject} from '@loopback/core';
 import {
   del,
   get,
@@ -17,14 +17,17 @@ import {
   TodoUpdateDTO,
 } from '../dtos';
 import {Item, Todo, TodoStatus, TodoWithRelations} from '../models';
-import {ItemRepository, TodoRepository} from '../repositories';
+import {ItemService, TodoService} from '../services';
+import {PlainToClassFunction} from '../types';
 
 export class TodoController {
   constructor(
-    @repository(TodoRepository)
-    public todoRepository: TodoRepository,
-    @repository(ItemRepository)
-    public itemRepository: ItemRepository,
+    @inject('services.TodoService')
+    public todoService: TodoService,
+    @inject('services.ItemService')
+    public itemService: ItemService,
+    @inject('providers.ClassTransformerProvider')
+    private plainToClass: PlainToClassFunction,
   ) {}
 
   @post('/todos')
@@ -61,7 +64,7 @@ export class TodoController {
     })
     todo: TodoCreateDTO,
   ): Promise<Todo> {
-    return this.todoRepository.createOne(todo);
+    return this.todoService.create(todo);
   }
 
   @get('/todos')
@@ -97,13 +100,14 @@ export class TodoController {
     @param.query.number('offset') offset?: number,
     @param.query.string('order') order?: 'ASC' | 'DESC',
   ): Promise<TodoCursorPagingRODTO<TodoWithRelations>> {
-    return this.todoRepository.findAll({
+    const dto = this.plainToClass(TodoQueryDTO, {
       title,
       status,
       limit,
       offset,
       order,
-    } as TodoQueryDTO);
+    });
+    return this.todoService.findAll(dto);
   }
 
   @get('/todos/{id}')
@@ -118,7 +122,7 @@ export class TodoController {
   async findById(
     @param.path.number('id') id: number,
   ): Promise<TodoWithRelations | null> {
-    return this.todoRepository.findOneTodo(id);
+    return this.todoService.findById(id);
   }
 
   @patch('/todos/{id}')
@@ -141,8 +145,8 @@ export class TodoController {
     })
     todo: TodoUpdateDTO,
   ): Promise<TodoWithRelations> {
-    await this.todoRepository.updateById(id, todo);
-    return this.todoRepository.findById(id);
+    await this.todoService.updateById(id, todo);
+    return this.todoService.findById(id);
   }
 
   @del('/todos/{id}')
@@ -150,7 +154,7 @@ export class TodoController {
     description: 'Todo DELETE success',
   })
   async deleteById(@param.path.number('id') id: number): Promise<void> {
-    await this.todoRepository.deleteById(id);
+    await this.todoService.deleteById(id);
   }
 
   @post('/todos/{id}/items')
@@ -159,7 +163,7 @@ export class TodoController {
     content: {'application/json': {schema: getModelSchemaRef(Item)}},
   })
   async createItem(
-    @param.path.number('id') id: number,
+    @param.path.number('id') todoId: number,
     @requestBody({
       content: {
         'application/json': {
@@ -172,6 +176,9 @@ export class TodoController {
     })
     item: Omit<Item, 'id'>,
   ): Promise<Item> {
-    return this.todoRepository.items(id).create(item);
+    return this.itemService.create({
+      ...item,
+      todoId,
+    });
   }
 }

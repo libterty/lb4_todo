@@ -1,5 +1,5 @@
 // controllers/item.controller.ts
-import {repository} from '@loopback/repository';
+import {inject} from '@loopback/core';
 import {
   del,
   get,
@@ -12,12 +12,12 @@ import {
 } from '@loopback/rest';
 import {ItemCreateDTO, ItemUpdateDTO} from '../dtos';
 import {Item} from '../models';
-import {ItemRepository} from '../repositories';
+import {ItemService} from '../services';
 
 export class ItemController {
   constructor(
-    @repository(ItemRepository)
-    public itemRepository: ItemRepository,
+    @inject('services.ItemService')
+    public itemService: ItemService,
   ) {}
 
   @post('/todos/{todoId}/items')
@@ -43,9 +43,8 @@ export class ItemController {
     })
     dto: ItemCreateDTO,
   ): Promise<Item> {
-    return this.itemRepository.create({
+    return this.itemService.create({
       ...dto,
-      completedAt: !!dto.isCompleted ? new Date().toISOString() : undefined,
       todoId,
     });
   }
@@ -67,7 +66,7 @@ export class ItemController {
     @param.query.string('description') description?: string,
     @param.query.boolean('isCompleted') isCompleted?: boolean,
   ): Promise<Item[]> {
-    return this.itemRepository.findAll({
+    return this.itemService.findAll({
       todoId,
       description: description,
       isCompleted,
@@ -87,7 +86,7 @@ export class ItemController {
     @param.path.number('todoId') todoId: number,
     @param.path.number('id') id: number,
   ): Promise<Item | null> {
-    return this.itemRepository.findOneItem(todoId, id);
+    return this.itemService.findOneItem(todoId, id);
   }
 
   @patch('/todos/{todoId}/items/{id}')
@@ -111,15 +110,18 @@ export class ItemController {
     })
     item: ItemUpdateDTO,
   ): Promise<Item | null> {
-    await this.itemRepository.updateOneItem(todoId, id, item);
-    return this.itemRepository.findOneItem(todoId, id);
+    await this.itemService.updateOneItem(todoId, id, item);
+    return this.itemService.findOneItem(todoId, id);
   }
 
   @del('/todos/{todoId}/items/{id}')
   @response(204, {
     description: 'Item DELETE success',
   })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
-    await this.itemRepository.deleteById(id);
+  async deleteById(
+    @param.path.number('todoId') todoId: number,
+    @param.path.number('id') id: number,
+  ): Promise<void> {
+    await this.itemService.deleteById(todoId, id);
   }
 }

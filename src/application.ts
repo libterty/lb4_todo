@@ -8,8 +8,12 @@ import {
 } from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
+import 'reflect-metadata';
 import {DbDataSource} from './datasources';
+import {ErrorInterceptor} from './interceptors';
+import {ClassTransformerProvider} from './providers';
 import {MySequence} from './sequence';
+import {ItemService, TodoService} from './services';
 
 export {ApplicationConfig};
 
@@ -18,6 +22,9 @@ export class Loopback4TodoApplication extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
+
+    // Register ErrorInterceptor
+    this.interceptor(ErrorInterceptor);
 
     // Set up the custom sequence
     this.sequence(MySequence);
@@ -44,5 +51,10 @@ export class Loopback4TodoApplication extends BootMixin(
         nested: true,
       },
     };
+
+    this.bind('providers.ClassTransformerProvider').toProvider(ClassTransformerProvider);
+
+    this.service(TodoService);
+    this.service(ItemService);
   }
 }
